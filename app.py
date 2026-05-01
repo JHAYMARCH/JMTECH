@@ -8,7 +8,7 @@ from pathlib import Path
 
 import mysql.connector
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr
@@ -44,6 +44,7 @@ def send_email(payload: ContactPayload) -> None:
     smtp_pass = os.getenv("SMTP_PASS")
     smtp_from = os.getenv("SMTP_FROM")
     smtp_to = os.getenv("SMTP_TO")
+    smtp_use_ssl = os.getenv("SMTP_USE_SSL", "").lower() in {"1", "true", "yes"}
 
     if not all([smtp_host, smtp_user, smtp_pass, smtp_from, smtp_to]):
         raise RuntimeError("SMTP configuration is incomplete.")
@@ -52,6 +53,7 @@ def send_email(payload: ContactPayload) -> None:
     msg["Subject"] = f"Portfolio Contact: {payload.subject}"
     msg["From"] = smtp_from
     msg["To"] = smtp_to
+    msg["Reply-To"] = payload.email
     msg.set_content(
         """
 New contact form submission:
@@ -69,12 +71,18 @@ Message:
             message=payload.message,
         )
     )
-
     context = ssl.create_default_context()
-    with smtplib.SMTP(smtp_host, smtp_port) as server:
-        server.starttls(context=context)
-        server.login(smtp_user, smtp_pass)
-        server.send_message(msg)
+    print("DEBUG sending email to:", smtp_to)
+    if smtp_use_ssl or smtp_port == 465:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=20, context=context) as server:
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
+    else:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=20) as server:
+            server.starttls(context=context)
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
+    print("DEBUG email sent successfully")
 
 
 @app.get("/")
@@ -82,9 +90,24 @@ async def home():
     return FileResponse(BASE_DIR / "index.html")
 
 
+@app.middleware("http")
+async def debug_contact_payload(request: Request, call_next):
+    if request.url.path == "/api/contact" and request.method.upper() == "POST":
+        body = await request.body()
+        print("DEBUG /api/contact raw body:", body.decode("utf-8", errors="replace"))
+
+        async def receive():
+            return {"type": "http.request", "body": body, "more_body": False}
+
+        request = Request(request.scope, receive)
+
+    return await call_next(request)
+
+
 @app.post("/api/contact")
 async def submit_contact(payload: ContactPayload):
     try:
+        print("DEBUG connecting to MySQL")
         connection = get_db_connection()
         cursor = connection.cursor()
         cursor.execute(
@@ -95,6 +118,7 @@ async def submit_contact(payload: ContactPayload):
             (payload.name, payload.email, payload.subject, payload.message),
         )
         connection.commit()
+        print("DEBUG database insert complete")
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Database error: {exc}")
     finally:

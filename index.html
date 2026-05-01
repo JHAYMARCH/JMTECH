@@ -202,35 +202,78 @@
       (function () {
         const form = document.getElementById("contact-form");
         const status = document.getElementById("form-status");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
         if (!form || !status) return;
+
+        function getErrorMessage(detail) {
+          if (!detail) return "Unable to send message.";
+          if (typeof detail === "string") return detail;
+          if (Array.isArray(detail)) {
+            return detail
+              .map(function (item) {
+                if (typeof item === "string") return item;
+                if (item && typeof item.msg === "string") return item.msg;
+                return JSON.stringify(item);
+              })
+              .join(", ");
+          }
+          if (detail && typeof detail.message === "string") return detail.message;
+          if (detail && typeof detail.msg === "string") return detail.msg;
+          return JSON.stringify(detail);
+        }
 
         form.addEventListener("submit", async function (event) {
           event.preventDefault();
+          const name = nameInput ? nameInput.value.trim() : "";
+          const email = emailInput ? emailInput.value.trim() : "";
+          const subject = subjectInput ? subjectInput.value.trim() : "";
+          const message = messageInput ? messageInput.value.trim() : "";
+
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            status.textContent = "Please enter a valid email address.";
+            status.classList.add("show");
+            return;
+          }
+
           status.textContent = "Sending...";
           status.classList.add("show");
+          const controller = new AbortController();
+          const timeoutId = setTimeout(function () {
+            controller.abort();
+          }, 25000);
 
           const payload = {
-            name: form.name.value.trim(),
-            email: form.email.value.trim(),
-            subject: form.subject.value.trim(),
-            message: form.message.value.trim()
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
           };
 
           try {
             const response = await fetch("/api/contact", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
+              body: JSON.stringify(payload),
+              signal: controller.signal
             });
+            clearTimeout(timeoutId);
 
             if (!response.ok) {
               const detail = await response.json().catch(() => ({}));
-              throw new Error(detail.detail || "Unable to send message.");
+              throw new Error(getErrorMessage(detail.detail || detail));
             }
 
             status.textContent = "Thanks! Your message has been sent.";
             form.reset();
           } catch (err) {
+            clearTimeout(timeoutId);
+            if (err.name === "AbortError") {
+              status.textContent = "Request timed out. Please check your internet or email settings and try again.";
+              return;
+            }
             status.textContent = err.message || "Something went wrong.";
           }
         });
