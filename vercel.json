@@ -17,7 +17,15 @@
     },
     {
       "source": "/static/(.*)",
-      "destination": "/$1"
+      "destination": "/api/index"
+    },
+    {
+      "source": "/",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
   ]
 }
