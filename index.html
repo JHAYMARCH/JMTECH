@@ -162,6 +162,12 @@
               <input type="text" name="subject" id="subject" placeholder="Subject" required />
               <textarea rows="5" name="message" id="message" placeholder="Your Message" required></textarea>
               <button class="btn primary" type="submit">Send Message</button>
+              <p class="form-help">
+                On the live site, you can always reach me directly via
+                <a href="mailto:joshuaoluwatobby@gmail.com">email</a>
+                or
+                <a href="https://wa.me/8161351002">WhatsApp</a>.
+              </p>
               <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
@@ -225,16 +231,34 @@
           return JSON.stringify(detail);
         }
 
+        function showLiveFallback(subject, message) {
+          const mailtoSubject = encodeURIComponent(subject || "Portfolio enquiry");
+          const mailtoBody = encodeURIComponent(message || "Hello Joshua, I would like to discuss a project.");
+          status.innerHTML =
+            'Live contact form setup is still in progress. Please use <a href="mailto:joshuaoluwatobby@gmail.com?subject=' +
+            mailtoSubject +
+            "&body=" +
+            mailtoBody +
+            '">email</a> or <a href="https://wa.me/8161351002" target="_blank" rel="noreferrer">WhatsApp</a>.';
+          status.classList.add("show");
+        }
+
         form.addEventListener("submit", async function (event) {
           event.preventDefault();
           const name = nameInput ? nameInput.value.trim() : "";
           const email = emailInput ? emailInput.value.trim() : "";
           const subject = subjectInput ? subjectInput.value.trim() : "";
           const message = messageInput ? messageInput.value.trim() : "";
+          const isVercelHost = /\.vercel\.app$/.test(window.location.hostname);
 
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             status.textContent = "Please enter a valid email address.";
             status.classList.add("show");
+            return;
+          }
+
+          if (isVercelHost) {
+            showLiveFallback(subject, message);
             return;
           }
 
@@ -271,10 +295,15 @@
           } catch (err) {
             clearTimeout(timeoutId);
             if (err.name === "AbortError") {
-              status.textContent = "Request timed out. Please check your internet or email settings and try again.";
+              showLiveFallback(subject, message);
               return;
             }
-            status.textContent = err.message || "Something went wrong.";
+            const messageText = err.message || "Something went wrong.";
+            if (/Database error|Email error|timed out/i.test(messageText)) {
+              showLiveFallback(subject, message);
+              return;
+            }
+            status.textContent = messageText;
           }
         });
       })();

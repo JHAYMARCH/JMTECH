@@ -515,3 +515,16 @@ body::after {
   transform: translateY(0);
 }
 
+.form-help {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.form-help a,
+.form-status a {
+  color: #8fd4ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
