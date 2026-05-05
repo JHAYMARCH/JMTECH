@@ -60,3 +60,8 @@ uvicorn app:app --reload --host 0.0.0.0 --port 8000
 - Email: `joshuaoluwatobby@gmail.com`
 - LinkedIn: `https://linkedin.com/in/oluwatobi-buoro`
 - GitHub: `https://github.com/JHAYMARCH`
+
+## Featured Projects
+
+- [FinLogger Dashboard](https://github.com/JHAYMARCH/finlogger-dashboard)
+- [Country Explorer REST API](https://github.com/JHAYMARCH/country_explorer_rest_api)
