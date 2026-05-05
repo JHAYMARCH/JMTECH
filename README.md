@@ -63,5 +63,5 @@ uvicorn app:app --reload --host 0.0.0.0 --port 8000
 
 ## Featured Projects
 
-- [FinLogger Dashboard](https://github.com/JHAYMARCH/finlogger-dashboard)
-- [Country Explorer REST API](https://github.com/JHAYMARCH/country_explorer_rest_api)
+- [FinLogger Dashboard](https://finlogger-dashboard.vercel.app)
+- [Country Explorer REST API](https://country-explorer-rest-api.vrecel.app)
