@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Full-stack developer and IT professional specializing in web development, software engineering, and system administration." />
+    <meta name="theme-color" content="#0b0b0d" />
     <title>Buoro Oluwatobi Joshua | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,6 +25,7 @@
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
           <a class="btn ghost" href="#resume">Resume</a>
@@ -47,8 +50,8 @@
               and full-stack development.
             </p>
             <div class="cta">
-              <button class="btn primary">Let&apos;s Talk</button>
-              <button class="btn ghost">View Portfolio</button>
+              <button class="btn primary" id="hero-cta">Let&apos;s Talk</button>
+              <button class="btn ghost" onclick="document.getElementById(&apos;projects&apos;).scrollIntoView({behavior: &apos;smooth&apos;})">View Portfolio</button>
             </div>
             <div class="availability">
               <span class="dot"></span>
@@ -110,22 +113,242 @@
         </div>
       </section>
 
+      <section class="section" id="skills">
+        <div class="container">
+          <div class="section-head">
+            <h2>Skills &amp; Technologies</h2>
+            <p>Tools and technologies I work with.</p>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>Frontend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Bootstrap</span>
+                <span class="skill-tag">Responsive Design</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Backend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Express.js</span>
+                <span class="skill-tag">PHP</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Databases</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">MySQL</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Database Design</span>
+                <span class="skill-tag">Schema Optimization</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>IT &amp; Systems</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">System Administration</span>
+                <span class="skill-tag">Networking</span>
+                <span class="skill-tag">Google Workspace</span>
+                <span class="skill-tag">MS Office Suite</span>
+                <span class="skill-tag">Hardware Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section stats-section">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">7+</div>
+              <div class="stat-label">Technologies Mastered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">2+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Commitment</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="education">
+        <div class="container">
+          <div class="section-head">
+            <h2>Education &amp; Certifications</h2>
+            <p>Continuous learning and professional development.</p>
+          </div>
+          <div class="certs-grid">
+            <article class="cert-card">
+              <div class="cert-year">2022</div>
+              <h3>Bachelor of Science (Computer Science)</h3>
+              <p class="cert-issuer">University Education</p>
+              <p>Comprehensive education in software engineering, systems design, and IT fundamentals.</p>
+            </article>
+            <article class="cert-card">
+              <div class="cert-year">2023</div>
+              <h3>Full-Stack Web Development</h3>
+              <p class="cert-issuer">Advanced Technical Training</p>
+              <p>Professional training in modern web development frameworks and best practices.</p>
+            </article>
+            <article class="cert-card">
+              <div class="cert-year">2023</div>
+              <h3>IT Support &amp; System Administration</h3>
+              <p class="cert-issuer">Professional Certification</p>
+              <p>Hands-on certification in system troubleshooting, support, and administration.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="container">
+          <div class="section-head">
+            <h2>Skills &amp; Technologies</h2>
+            <p>Tools and technologies I work with.</p>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>Frontend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Bootstrap</span>
+                <span class="skill-tag">Responsive Design</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Backend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Express.js</span>
+                <span class="skill-tag">PHP</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Databases</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">MySQL</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Database Design</span>
+                <span class="skill-tag">Schema Optimization</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>IT &amp; Systems</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">System Administration</span>
+                <span class="skill-tag">Networking</span>
+                <span class="skill-tag">Google Workspace</span>
+                <span class="skill-tag">MS Office Suite</span>
+                <span class="skill-tag">Hardware Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section stats-section">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">7+</div>
+              <div class="stat-label">Technologies Mastered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">2+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Commitment</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="education">
+        <div class="container">
+          <div class="section-head">
+            <h2>Education &amp; Certifications</h2>
+            <p>Continuous learning and professional development.</p>
+          </div>
+          <div class="certs-grid">
+            <article class="cert-card">
+              <div class="cert-year">2022</div>
+              <h3>Bachelor of Science (Computer Science)</h3>
+              <p class="cert-issuer">University Education</p>
+              <p>Comprehensive education in software engineering, systems design, and IT fundamentals.</p>
+            </article>
+            <article class="cert-card">
+              <div class="cert-year">2023</div>
+              <h3>Full-Stack Web Development</h3>
+              <p class="cert-issuer">Advanced Technical Training</p>
+              <p>Professional training in modern web development frameworks and best practices.</p>
+            </article>
+            <article class="cert-card">
+              <div class="cert-year">2023</div>
+              <h3>IT Support &amp; System Administration</h3>
+              <p class="cert-issuer">Professional Certification</p>
+              <p>Hands-on certification in system troubleshooting, support, and administration.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="projects">
         <div class="container">
           <div class="section-head">
-            <h2>Projects</h2>
-            <p>Selected work.</p>
+            <h2>Featured Projects</h2>
+            <p>Selected work showcasing my expertise.</p>
           </div>
           <div class="cards">
             <article class="card project">
-              <h3>FinLogger Project</h3>
-              <p>A finance tracking app for budgets and spending insights.</p>
-              <a class="btn ghost" href="https://finlogger-dashboard.vercel.app" target="_blank" rel="noreferrer">View Details</a>
+              <div class="project-header">
+                <h3>FinLogger Project</h3>
+              </div>
+              <p>A modern finance tracking application designed for budget management and spending insights with an intuitive dashboard.</p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">Vercel</span>
+              </div>
+              <a class="btn ghost" href="https://finlogger-dashboard.vercel.app" target="_blank" rel="noreferrer">View Live Project</a>
             </article>
             <article class="card project">
-              <h3>Country Explorer REST API</h3>
-              <p>REST API integration for country data, regions and quick lookups.</p>
-              <a class="btn ghost" href="https://country-explorer-rest-api.vercel.app" target="_blank" rel="noreferrer">View Details</a>
+              <div class="project-header">
+                <h3>Country Explorer REST API</h3>
+              </div>
+              <p>Comprehensive REST API integration for global country data, regional information, and fast lookup capabilities with clean documentation.</p>
+              <div class="project-tech">
+                <span class="tech-tag">REST API</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Vercel</span>
+              </div>
+              <a class="btn ghost" href="https://country-explorer-rest-api.vercel.app" target="_blank" rel="noreferrer">View Live Project</a>
             </article>
           </div>
         </div>
@@ -177,12 +400,20 @@
 
     <footer class="site-footer" id="resume">
       <div class="container footer-grid">
-        <p>� 2026 Buoro Oluwatobi Joshua. All rights reserved.</p>
+        <p>&copy; <span id=\"year\"></span> Buoro Oluwatobi Joshua. All rights reserved.</p>
         <p>Nigeria</p>
       </div>
     </footer>
 
     <script>
+      // Auto-update year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Hero CTA scroll to contact
+      document.getElementById('hero-cta').addEventListener('click', function() {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      });
+
       (function () {
         const labels = [
           "Software Engineer",
